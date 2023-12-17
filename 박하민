@@ -1,0 +1,77 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Random Wisdom',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<String> wisdomList = [
+    "오늘은 행운이 가득할 것입니다.",
+    "어제의 나를 이길 수 있습니다.",
+    "미소 지으면 운이 찾아올 거예요.",
+    // 여기에 더 많은 운세 문구 추가
+  ];
+
+  String randomWisdom = "";
+
+  @override
+  void initState() {
+    super.initState();
+    generateRandomWisdom();
+  }
+
+  void generateRandomWisdom() {
+    setState(() {
+      int randomIndex = Random().nextInt(wisdomList.length);
+      randomWisdom = wisdomList[randomIndex];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Random Wisdom'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '오늘의 운세',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              randomWisdom,
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: generateRandomWisdom,
+              child: Text('다른 운세 보기'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
